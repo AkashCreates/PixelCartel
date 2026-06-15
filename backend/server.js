@@ -9,6 +9,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import adminRouter from "./routes/adminRoutes.js";
 import {v2 as cloudinary} from 'cloudinary'
 import doctorRouter from "./routes/doctorRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 //Debug logs
 // console.log("Cloud Name:", process.env.CLOUDINARY_NAME);
@@ -29,6 +30,7 @@ app.use(cors());
 //api endpoints
 app.use('/api/admin',adminRouter)
 app.use('/api/doctor',doctorRouter)
+app.use('/api/user',userRouter)
 //localhost:4000/api/admin/add-doctor
 app.get('/',(req,res)=>{
     res.send('API WORKING')

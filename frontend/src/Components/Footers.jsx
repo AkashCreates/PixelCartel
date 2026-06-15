@@ -111,7 +111,7 @@ const Footer = () => {
         <div className="absolute top-0 left-0 w-20 h-0.5 bg-lime-500"></div>
         <div className="absolute top-0 right-0 w-20 h-0.5 bg-lime-500"></div>
         <p className="text-center text-sm py-4 text-gray-500">
-          &copy; 2025 HealthBridge. All rights reserved.
+          &copy; 2026 HealthBridge. All rights reserved.
         </p>
       </div>
     </footer>

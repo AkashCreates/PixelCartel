@@ -1,12 +1,19 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets_frontend/assets";
-import { use, useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../Context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const { token, setToken } = useContext(AppContext);
+
   const [showMenu, setShowMenu] = useState(false);
-  const [token, setToken] = useState(true);
+
+  const logout = () =>{
+    setToken(false)
+    localStorage.removeItem('token')
+  }
 
   return (
     <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
@@ -39,32 +46,9 @@ const Navbar = () => {
         </NavLink>
       </ul>
 
-      {/* <div className="flex items-center gap-4">
-        {token ? (
-          <div className="flex items-center gap-2 cursor-pointer group relative">
-            <img className="w-8 rounded-full" src={assets.profile_pic} alt="" />
-            <img className="w-2.5" src={assets.dropdown_icon} alt="" />
-            <div className="absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block">
-              <div className="min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4">
-                <p onClick={() => navigate("/myprofile")} className="hover:text-black cursor-pointer">My Profile</p>
-                <p onClick={() => navigate("/my-appointments")} className="hover:text-black cursor-pointer">My Appointments</p>
-                <p onClick={()=>{setToken(false)}} className="hover:text-black cursor-pointer">Logout</p>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <button
-            onClick={() => navigate("/login")}
-            className=" bg-primary text-white  px-8 py-3 rounded-full font-semibold hidden md:block"
-          >
-            Create Account
-          </button>
-        )}
-      </div> */}
-
       <div className="flex items-center gap-4">
         {token ? (
-          <div className="relative group flex items-center gap-2 cursor-pointer">
+          <div className="relative group flex items-center gap-2 cursor-pointer z-10">
             {/* Profile */}
             <img
               className="w-9 h-9 rounded-full border border-gray-300 object-cover"
@@ -79,10 +63,7 @@ const Navbar = () => {
 
             {/* Dropdown */}
             <div className="absolute right-0 top-full pt-2 hidden group-hover:block z-20">
-              <div
-                className="min-w-48 bg-white border border-gray-200 rounded-xl
-                        shadow-lg p-3 flex flex-col text-sm text-gray-700"
-              >
+              <div className="min-w-48 bg-white border border-gray-200 rounded-xl shadow-lg p-3 flex flex-col text-sm text-gray-700">
                 <p
                   onClick={() => navigate("/myprofile")}
                   className="px-4 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
@@ -96,7 +77,7 @@ const Navbar = () => {
                   My Appointments
                 </p>
                 <p
-                  onClick={() => setToken(false)}
+                  onClick={logout}
                   className="px-4 py-2 rounded-lg hover:bg-gray-100 text-red-500 cursor-pointer"
                 >
                   Logout
@@ -107,12 +88,41 @@ const Navbar = () => {
         ) : (
           <button
             onClick={() => navigate("/login")}
-            className="hidden md:block px-7 py-2.5 rounded-full
-                 bg-primary text-white font-semibold hover:opacity-90 transition"
+            className="hidden md:block px-7 py-2.5 rounded-full bg-primary text-white font-semibold hover:opacity-90 transition"
           >
             Create Account
           </button>
         )}
+
+        <img
+          onClick={() => setShowMenu(true)}
+          className="w-6 md:hidden"
+          src={assets.menu_icon}
+          alt=""
+        />
+
+        {/* Mobile menu — Bug 2 fixed: correct template literal with backtick */}
+        <div
+          className={`fixed top-0 right-0 bottom-0 bg-white overflow-hidden transition-all duration-300 md:hidden z-50 ${showMenu ? "w-full" : "w-0"}`}
+        >
+          <div className="flex items-center justify-between px-5 py-6">
+            <img className="w-36" src={assets.logo} alt="" />
+            <img
+              className="w-7"
+              onClick={() => setShowMenu(false)}
+              src={assets.cross_icon}
+              alt=""
+            />
+          </div>
+
+          {/* Bug 3 fixed: NavLink (capital L), not Navlink */}
+          <ul className="flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium">
+            <NavLink  to="/" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>Home</p></NavLink>
+            <NavLink  to="/doctors" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>All Doctors</p></NavLink>
+            <NavLink  to="/about" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>About</p></NavLink>
+            <NavLink  to="/contact" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>Contact</p></NavLink>
+          </ul>
+        </div>
       </div>
     </div>
   );
