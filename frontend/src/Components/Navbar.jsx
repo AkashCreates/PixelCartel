@@ -6,7 +6,7 @@ import { AppContext } from "../Context/AppContext";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const { token, setToken } = useContext(AppContext);
+  const { token, setToken, userData } = useContext(AppContext);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -47,12 +47,12 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center gap-4">
-        {token ? (
+        {token && userData ? (
           <div className="relative group flex items-center gap-2 cursor-pointer z-10">
             {/* Profile */}
             <img
               className="w-9 h-9 rounded-full border border-gray-300 object-cover"
-              src={assets.profile_pic}
+              src={userData.image}
               alt="Profile"
             />
             <img
@@ -65,7 +65,7 @@ const Navbar = () => {
             <div className="absolute right-0 top-full pt-2 hidden group-hover:block z-20">
               <div className="min-w-48 bg-white border border-gray-200 rounded-xl shadow-lg p-3 flex flex-col text-sm text-gray-700">
                 <p
-                  onClick={() => navigate("/myprofile")}
+                  onClick={() => navigate("/my-profile")}
                   className="px-4 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
                 >
                   My Profile
