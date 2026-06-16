@@ -27,12 +27,13 @@ const Appointment = () => {
 
   useEffect(() => {
     if (!doctors || !docId) return;
-
     const info = doctors.find((doc) => doc._id === docId);
     setDocInfo(info || null);
   }, [doctors, docId]);
 
   const getAvailableSlots = useCallback(() => {
+    if (!docInfo) return;
+
     const slots = [];
     const today = new Date();
 
@@ -45,16 +46,10 @@ const Appointment = () => {
 
       if (i === 0) {
         const mins = currentDate.getMinutes();
-
         if (mins < 30) {
           currentDate.setMinutes(30, 0, 0);
         } else {
-          currentDate.setHours(
-            currentDate.getHours() + 1,
-            0,
-            0,
-            0
-          );
+          currentDate.setHours(currentDate.getHours() + 1, 0, 0, 0);
         }
       } else {
         currentDate.setHours(10, 0, 0, 0);
@@ -63,13 +58,28 @@ const Appointment = () => {
       const timeSlots = [];
 
       while (currentDate < endTime) {
-        timeSlots.push({
-          datetime: new Date(currentDate),
-          time: currentDate.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
+        // Build slotDate and slotTime to check against booked slots
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1;
+        const year = currentDate.getFullYear();
+        const slotDate = `${day}_${month}_${year}`;
+
+        const slotTime = currentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
         });
+
+        // Only add slot if it's not already booked
+        const isSlotAvailable =
+          !docInfo.slots_booked[slotDate] ||
+          !docInfo.slots_booked[slotDate].includes(slotTime);
+
+        if (isSlotAvailable) {
+          timeSlots.push({
+            datetime: new Date(currentDate),
+            time: slotTime,
+          });
+        }
 
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
@@ -78,7 +88,7 @@ const Appointment = () => {
     }
 
     setDocSlots(slots);
-  }, []);
+  }, [docInfo]);
 
   const bookAppointment = async () => {
     if (!token) {
@@ -93,7 +103,6 @@ const Appointment = () => {
 
     try {
       const date = selectedSlot.datetime;
-
       const day = date.getDate();
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
@@ -103,14 +112,8 @@ const Appointment = () => {
 
       const { data } = await axios.post(
         backendUrl + "/api/user/book-appointment",
-        {
-          docId,
-          slotDate,
-          slotTime,
-        },
-        {
-          headers: { token },
-        }
+        { docId, slotDate, slotTime },
+        { headers: { token } }
       );
 
       if (data.success) {
@@ -157,18 +160,13 @@ const Appointment = () => {
         <div className="flex-1 space-y-4">
           <p className="text-2xl font-semibold flex items-center gap-2">
             {docInfo.name}
-            <img
-              src={assets.verified_icon}
-              alt="Verified"
-              className="w-5"
-            />
+            <img src={assets.verified_icon} alt="Verified" className="w-5" />
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-gray-600">
               {docInfo.degree} • {docInfo.speciality}
             </p>
-
             <span className="px-3 py-1 text-sm rounded-full bg-green-100 text-green-700 font-medium">
               {docInfo.experience}
             </span>
@@ -177,16 +175,9 @@ const Appointment = () => {
           <div className="space-y-1">
             <p className="font-medium flex items-center gap-1">
               About
-              <img
-                src={assets.info_icon}
-                alt=""
-                className="w-4"
-              />
+              <img src={assets.info_icon} alt="" className="w-4" />
             </p>
-
-            <p className="text-gray-600 leading-relaxed">
-              {docInfo.about}
-            </p>
+            <p className="text-gray-600 leading-relaxed">{docInfo.about}</p>
           </div>
 
           <p className="text-lg font-medium">
@@ -201,9 +192,7 @@ const Appointment = () => {
 
       {/* Booking Section */}
       <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6">
-        <p className="text-xl font-semibold text-gray-900">
-          Booking Slots
-        </p>
+        <p className="text-xl font-semibold text-gray-900">Booking Slots</p>
 
         {/* Days */}
         <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
@@ -221,13 +210,10 @@ const Appointment = () => {
               }`}
             >
               <p className="text-sm font-medium">
-                {item[0] &&
-                  daysOfWeek[item[0].datetime.getDay()]}
+                {item[0] && daysOfWeek[item[0].datetime.getDay()]}
               </p>
-
               <p className="text-lg font-semibold">
-                {item[0] &&
-                  item[0].datetime.getDate()}
+                {item[0] && item[0].datetime.getDate()}
               </p>
             </div>
           ))}
@@ -238,8 +224,7 @@ const Appointment = () => {
           {docSlots[slotIndex]?.map((item, index) => {
             const isSelected =
               selectedSlot &&
-              selectedSlot.datetime.getTime() ===
-                item.datetime.getTime();
+              selectedSlot.datetime.getTime() === item.datetime.getTime();
 
             return (
               <div
@@ -261,8 +246,7 @@ const Appointment = () => {
           <p className="text-sm text-gray-600">
             Selected slot:
             <span className="ml-2 font-medium text-green-700">
-              {selectedDay}, {selectedDate} •{" "}
-              {selectedSlot.time.toLowerCase()}
+              {selectedDay}, {selectedDate} • {selectedSlot.time.toLowerCase()}
             </span>
           </p>
         )}
