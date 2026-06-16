@@ -1,13 +1,16 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, } from 'react'
 import { AppContext } from '../Context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const MyAppointments = () => {
   const { backendUrl, token, getDoctorsData } = useContext(AppContext)
 
   const [appointments, setAppointments] = useState([])
   const months = [' '+'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+  const navigate = useNavigate()
 
   const slotDateFormat = (slotDate)=>{
     const dateArray = slotDate.split('_')
@@ -56,6 +59,23 @@ const MyAppointments = () => {
       receipt:order.receipt,
       handler:async(response)=>{
          console.log(response);
+
+         try {
+          
+          const{data} = await axios.post(backendUrl + '/api/user/verifyRazorpay', response, {headers:{token}})
+          if(data.success){
+            toast.success(data.message)
+            getUserAppointments()
+            navigate('/my-appointments')
+          }else{
+            toast.error(data.message)
+          }
+
+         } catch (error) {
+          console.log(error);
+          toast.error(error.message)
+         }
+
       }
     }
     const rzp = new window.Razorpay(options)
@@ -110,7 +130,8 @@ const MyAppointments = () => {
 
               {/* Actions */}
               <div className='flex shrink-0 flex-col gap-2 sm:items-end'>
-                {item.cancelled !== true && <button onClick={()=>appointmentRazorpay(item._id)} className='w-40 rounded-full border border-primary py-2 text-sm font-medium text-primary transition hover:bg-primary hover:text-white'>
+                {!item.cancelled && item.payment && <button className='sm:min-w-48 py-2 border rounded border-green-50 text-stone-500' >Paid</button>}
+                {item.cancelled !== true && !item.payment && <button onClick={()=>appointmentRazorpay(item._id)} className='w-40 rounded-full border border-primary py-2 text-sm font-medium text-primary transition hover:bg-primary hover:text-white'>
                   Pay Online
                 </button>}
                 {item.cancelled !== true && <button onClick={()=>cancelAppointment(item._id)} className='w-40 rounded-full border border-red-400 py-2 text-sm font-medium text-red-400 transition hover:bg-red-400 hover:text-white'>
