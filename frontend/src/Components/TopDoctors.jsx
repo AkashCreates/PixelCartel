@@ -103,7 +103,7 @@ const TopDoctors = () => {
 
                 <span className={`absolute top-4 left-4 ${item.available ? "bg-green-500/90" : "bg-red-500/90"}  text-white text-xs px-3 py-1 rounded-full flex items-center gap-1`}>
                   <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                  Available
+                  {item.available ? "Available" : "Unavailable"}
                 </span>
               </div>
 

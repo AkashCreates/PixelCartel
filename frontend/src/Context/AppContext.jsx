@@ -59,6 +59,20 @@ const AppContextProvider = (props) => {
 
   useEffect(()=>{
     getDoctorsData()
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        getDoctorsData()
+      }
+    }
+
+    window.addEventListener('focus', getDoctorsData)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      window.removeEventListener('focus', getDoctorsData)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   },[])
 
   return (

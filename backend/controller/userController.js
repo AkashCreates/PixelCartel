@@ -118,6 +118,13 @@ const bookAppointment = async (req, res) => {
       });
     }
 
+    if (!docData.available) {
+      return res.json({
+        success: false,
+        message: "Doctor is currently unavailable",
+      });
+    }
+
     let slots_booked = docData.slots_booked || {};
 
     // Check slot availability

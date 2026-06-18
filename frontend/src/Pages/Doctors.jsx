@@ -146,9 +146,9 @@ const Doctors = () => {
                     alt={item.name}
                     className="w-full h-56 object-cover"
                   />
-                  <span className="absolute top-4 left-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                  <span className={`absolute top-4 left-4 ${item.available ? "bg-green-500" : "bg-red-500"} text-white text-xs px-3 py-1 rounded-full flex items-center gap-1`}>
                     <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                    Available
+                    {item.available ? "Available" : "Unavailable"}
                   </span>
                 </div>
 
@@ -159,10 +159,14 @@ const Doctors = () => {
                   <p className="text-sm text-gray-500">{item.speciality}</p>
 
                   <button
-                    className="mt-4 w-full py-2 rounded-xl text-sm font-medium
-                               bg-gradient-to-r from-lime-600 to-green-700 text-white"
+                    disabled={!item.available}
+                    className={`mt-4 w-full py-2 rounded-xl text-sm font-medium text-white ${
+                      item.available
+                        ? "bg-gradient-to-r from-lime-600 to-green-700"
+                        : "bg-gray-300 cursor-not-allowed"
+                    }`}
                   >
-                    Book Appointment
+                    {item.available ? "Book Appointment" : "Unavailable"}
                   </button>
                 </div>
               </div>

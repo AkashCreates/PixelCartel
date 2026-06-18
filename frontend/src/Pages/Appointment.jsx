@@ -91,6 +91,11 @@ const Appointment = () => {
   }, [docInfo]);
 
   const bookAppointment = async () => {
+    if (!docInfo.available) {
+      toast.error("Doctor is currently unavailable");
+      return;
+    }
+
     if (!token) {
       toast.error("Please login to book an appointment");
       navigate("/login");
@@ -169,6 +174,13 @@ const Appointment = () => {
             </p>
             <span className="px-3 py-1 text-sm rounded-full bg-green-100 text-green-700 font-medium">
               {docInfo.experience}
+            </span>
+            <span className={`px-3 py-1 text-sm rounded-full font-medium ${
+              docInfo.available
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}>
+              {docInfo.available ? "Available" : "Unavailable"}
             </span>
           </div>
 
@@ -254,14 +266,14 @@ const Appointment = () => {
         <div className="flex justify-end pt-4">
           <button
             onClick={bookAppointment}
-            disabled={!selectedSlot}
+            disabled={!selectedSlot || !docInfo.available}
             className={`px-10 py-3 rounded-full font-semibold transition-all ${
-              selectedSlot
+              selectedSlot && docInfo.available
                 ? "bg-gradient-to-r from-lime-600 to-green-700 text-white hover:opacity-90 hover:scale-105"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
             }`}
           >
-            Book Appointment
+            {docInfo.available ? "Book Appointment" : "Unavailable"}
           </button>
         </div>
       </div>
