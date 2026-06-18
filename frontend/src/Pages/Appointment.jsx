@@ -13,6 +13,7 @@ const Appointment = () => {
     currencySymbol,
     backendUrl,
     token,
+    userData,
     getDoctorsData,
   } = useContext(AppContext);
 
@@ -99,6 +100,24 @@ const Appointment = () => {
     if (!token) {
       toast.error("Please login to book an appointment");
       navigate("/login");
+      return;
+    }
+
+    const isProfileIncomplete =
+      !userData ||
+      !userData.phone ||
+      userData.phone === "0000000000" ||
+      !userData.address ||
+      !userData.address.line1 ||
+      !userData.address.line2 ||
+      !userData.gender ||
+      userData.gender === "Not Selected" ||
+      !userData.dob ||
+      userData.dob === "Not Selected";
+
+    if (isProfileIncomplete) {
+      toast.error("Please complete your profile before booking an appointment");
+      navigate("/my-profile");
       return;
     }
 

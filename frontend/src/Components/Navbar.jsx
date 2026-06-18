@@ -9,10 +9,15 @@ const Navbar = () => {
   const { token, setToken, userData } = useContext(AppContext);
 
   const [showMenu, setShowMenu] = useState(false);
+  const adminUrl = import.meta.env.VITE_ADMIN_URL || "http://localhost:5174";
 
   const logout = () =>{
     setToken(false)
     localStorage.removeItem('token')
+  }
+
+  const openAdminLogin = () => {
+    window.location.href = adminUrl;
   }
 
   return (
@@ -44,6 +49,10 @@ const Navbar = () => {
           <li className="py-1">CONTACT</li>
           <hr className="h-0.5 border-none outline-none bg-primary w-3/5 m-auto hidden" />
         </NavLink>
+
+        <button onClick={openAdminLogin} className="py-1 cursor-pointer">
+          ADMIN
+        </button>
       </ul>
 
       <div className="flex items-center gap-4">
@@ -121,6 +130,7 @@ const Navbar = () => {
             <NavLink  to="/doctors" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>All Doctors</p></NavLink>
             <NavLink  to="/about" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>About</p></NavLink>
             <NavLink  to="/contact" onClick={() => setShowMenu(false)}><p className='px-4 py-2 rounded inline-block'>Contact</p></NavLink>
+            <button onClick={() => { setShowMenu(false); openAdminLogin(); }} className='px-4 py-2 rounded inline-block'>Admin</button>
           </ul>
         </div>
       </div>

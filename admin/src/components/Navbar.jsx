@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import { AdminContext } from '../context/AdminContext'
 import { DoctorContext } from '../context/DoctorContext'
 import { useNavigate } from 'react-router-dom'
+import { LogOut} from 'lucide-react'
 
 const Navbar = () => {
     const {aToken,setAToken} = useContext(AdminContext)
@@ -13,11 +14,11 @@ const Navbar = () => {
         navigate('/')
         if(aToken){
             setAToken('')
-            localStorage.removeItem('aToken')
+            sessionStorage.removeItem('aToken')
         }
         if(dToken){
             setDToken('')
-            localStorage.removeItem('dToken')
+            sessionStorage.removeItem('dToken')
         }
     }
 
@@ -27,7 +28,7 @@ const Navbar = () => {
         <img className='w-36 sm:w-40 cursor-pointer' src={assets.logo} alt="" />
         <p className='border px-2.5 py-0.5 rounded-full border-gray-500 text-gray-600'>{aToken? 'Admin':'Doctor'}</p>
         </div>
-        <button onClick={logout} className='bg-primary text-white text-sm px-10 rounded-full'>Logout</button>
+        <button onClick={logout} className='bg-white text-black text-sm px-10 rounded-full'><LogOut/> Logout</button>
     </div>
   )
 }
