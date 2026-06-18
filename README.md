@@ -1,91 +1,192 @@
-# 🏥 HealthBridge
+# HealthBridge 🏥
 
-HealthBridge is a modern Doctor Appointment Booking System designed to simplify the process of connecting patients with healthcare professionals. The platform allows users to browse doctors, manage appointments, and access healthcare services through an intuitive and responsive interface.
+HealthBridge is a full-stack Doctor Appointment Booking System built using the MERN Stack. The platform connects patients, doctors, and administrators through a centralized healthcare management system.
 
-## 🚀 Current Status
+## Overview
 
-✅ Frontend Development Completed
+HealthBridge streamlines the appointment booking process by allowing patients to discover doctors, schedule appointments, manage profiles, and track appointment history. Doctors can manage their availability and appointments, while administrators oversee the entire platform through a dedicated dashboard.
 
-🔄 Backend Development In Progress
+## Features
 
-## 🛠️ Tech Stack
+### Patient Portal
+
+* User Registration & Authentication
+* Browse Doctors by Specialization
+* Book Appointments
+* View Appointment History
+* Manage Profile Information
+
+### Doctor Portal
+
+* Doctor Authentication
+* Manage Availability
+* View Scheduled Appointments
+* Update Doctor Profile
+* Dashboard Overview
+
+### Admin Panel
+
+* Admin Authentication
+* Add & Manage Doctors
+* Monitor Appointments
+* Dashboard Analytics
+* Platform Management
+
+### Additional Features
+
+* JWT Authentication
+* Cloudinary Image Uploads
+* Razorpay Payment Integration
+* Responsive UI
+* Secure API Architecture
+
+## Tech Stack
 
 ### Frontend
-- React.js
-- React Router DOM
-- Tailwind CSS
-- React Toastify
-- Axios
 
-## ✨ Features Implemented
+* React
+* React Router DOM
+* Axios
+* React Toastify
+* Tailwind CSS
+* Vite
 
-- Modern Responsive UI
-- Multi-Page Navigation
-- Doctor Listing Interface
-- Authentication Pages
-- Appointment Booking UI
-- Toast Notifications
-- Mobile-Friendly Design
+### Backend
 
-## 📂 Project Structure
+* Node.js
+* Express.js
+* MongoDB Atlas
+* Mongoose
 
+### Authentication
+
+* JWT (JSON Web Token)
+* bcrypt
+
+### Cloud & Services
+
+* Cloudinary
+* Razorpay
+* MongoDB Atlas
+
+## Project Structure
+
+```text
+HealthBridge/
+│
+├── frontend/        # Patient Application
+├── admin/           # Admin Dashboard
+├── backend/         # Backend API Server
+│
+└── README.md
 ```
-frontend/
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── pages/
-│   ├── App.jsx
-│   └── main.jsx
-├── package.json
-└── vite.config.js
-```
 
-## ⚙️ Installation
+## Installation
 
-Clone the repository:
+### Clone Repository
 
 ```bash
-git clone https://github.com/AkashCreates/PixelCartel.git
+git clone <repository-url>
+cd HealthBridge
 ```
 
-Navigate to the project:
+### Install Dependencies
+
+Frontend:
 
 ```bash
-cd PixelCartel
-```
-
-Install dependencies:
-
-```bash
+cd frontend
 npm install
 ```
 
-Start the development server:
+Admin:
 
 ```bash
+cd admin
+npm install
+```
+
+Backend:
+
+```bash
+cd backend
+npm install
+```
+
+## Environment Variables
+
+Create `.env` files where required.
+
+### Backend
+
+```env
+PORT=4000
+MONGODB_URI=
+JWT_SECRET=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
+
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+```
+
+### Frontend & Admin
+
+```env
+VITE_BACKEND_URL=http://localhost:4000
+```
+
+## Running the Project
+
+### Backend
+
+```bash
+cd backend
+npm run server
+```
+
+### Frontend
+
+```bash
+cd frontend
 npm run dev
 ```
 
-## 🎯 Future Enhancements
+### Admin Panel
 
-- Patient Authentication
-- Doctor Dashboard
-- Appointment Management
-- Payment Integration
-- Admin Panel
-- Real-time Notifications
-- Medical Records Management
+```bash
+cd admin
+npm run dev
+```
 
-## 👨‍💻 Team Project
+## Deployment
 
-Final Year College Project
+| Service       | Platform      |
+| ------------- | ------------- |
+| Frontend      | Vercel        |
+| Admin Panel   | Vercel        |
+| Backend       | Render        |
+| Database      | MongoDB Atlas |
+| Media Storage | Cloudinary    |
 
-**Project Name:** HealthBridge
+## Future Enhancements
 
-A complete MERN Stack Doctor Appointment Booking Platform aimed at improving healthcare accessibility through digital appointment management.
+* Video Consultation
+* Email Notifications
+* Appointment Reminders
+* Doctor Reviews & Ratings
+* Advanced Analytics Dashboard
 
----
+## Contributors
 
-Made with ❤️ using React and Tailwind CSS.
+* Aditya Paul
+* Team HealthBridge
+
+## License
+
+This project is developed for educational and academic purposes.
