@@ -1,16 +1,202 @@
-# React + Vite
+# HealthBridge Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+HealthBridge is a modern doctor appointment booking platform that allows patients to discover doctors, schedule appointments, manage profiles, and track appointment history through a clean and responsive user interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Patient Features
 
-## React Compiler
+* User Registration & Login
+* Browse Available Doctors
+* Search by Specialization
+* Book Doctor Appointments
+* View Appointment History
+* Manage User Profile
+* Responsive Design for All Devices
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### User Experience
 
-## Expanding the ESLint configuration
+* Interactive Homepage
+* Doctor Listings
+* Appointment Booking System
+* Toast Notifications
+* Fast Navigation with React Router
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+### Frontend
+
+* React 19
+* React Router DOM
+* Axios
+* React Toastify
+* Tailwind CSS v4
+* Vite
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB Atlas
+
+## Project Structure
+
+```text
+frontend/
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │
+│   ├── Components/
+│   │   ├── Banner.jsx
+│   │   ├── Footers.jsx
+│   │   ├── Header.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── SpecialityMenu.jsx
+│   │   └── TopDoctors.jsx
+│   │
+│   ├── Context/
+│   │   └── AppContext.jsx
+│   │
+│   ├── Pages/
+│   │   ├── Home.jsx
+│   │   ├── Doctors.jsx
+│   │   ├── Appointment.jsx
+│   │   ├── MyAppointments.jsx
+│   │   ├── MyProfile.jsx
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   └── Login.jsx
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── package.json
+└── vite.config.js
+```
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone <repository-url>
+```
+
+### Navigate to Frontend
+
+```bash
+cd frontend
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Create Environment Variables
+
+Create a `.env` file:
+
+```env
+VITE_BACKEND_URL=http://localhost:4000
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+## Production Build
+
+Build the application:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Pages
+
+### Home
+
+* Landing page
+* Featured doctors
+* Medical specialties
+
+### Doctors
+
+* View all doctors
+* Filter by specialty
+
+### Appointment
+
+* Book appointments with doctors
+
+### My Appointments
+
+* View booked appointments
+* Manage appointments
+
+### My Profile
+
+* Update user profile information
+
+### About
+
+* Platform information
+
+### Contact
+
+* Contact details and support
+
+### Login
+
+* User authentication
+
+## Dependencies
+
+* React
+* React DOM
+* React Router DOM
+* Axios
+* React Toastify
+* Tailwind CSS
+* Vite
+
+## Deployment
+
+### Frontend Hosting
+
+* Vercel
+
+### Backend Hosting
+
+* Render
+
+### Database
+
+* MongoDB Atlas
+
+## Future Enhancements
+
+* Online Payment Integration
+* Doctor Ratings & Reviews
+* Email Notifications
+* Appointment Reminders
+* Video Consultation Support
+* Advanced Search Filters
+
+## Author
+
+Developed as part of the **HealthBridge Doctor Appointment Booking System** using the MERN Stack.
+https://github.com/adi-builds
