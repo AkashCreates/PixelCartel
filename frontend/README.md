@@ -2,6 +2,13 @@
 
 HealthBridge is a modern doctor appointment booking platform that allows patients to discover doctors, schedule appointments, manage profiles, and track appointment history through a clean and responsive user interface.
 
+## 🌐 Live Demo
+
+**Client Panel:** [Live Demo](healthbridge-self.vercel.app)
+
+**Backend API:** https://pixelcartel.onrender.com/
+
+
 ## Features
 
 ### Patient Features
