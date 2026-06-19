@@ -20,6 +20,13 @@ The HealthBridge Admin Panel is a web-based dashboard designed to manage the Hea
 * Toast Notifications for User Feedback
 * Real-Time Data Fetching from Backend APIs
 
+## 🌐 Live Demo
+
+**Admin Panel:** [https://health-bridgeadmin.vercel.app/]
+
+**Backend API:** https://pixelcartel.onrender.com/
+
+
 ## Tech Stack
 
 ### Frontend
