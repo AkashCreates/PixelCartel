@@ -12,6 +12,10 @@ The HealthBridge Backend is the server-side application powering the HealthBridg
 * JWT-Based Authorization
 * Protected Routes
 
+## 🌐 Live Demo
+
+**Backend API:** https://pixelcartel.onrender.com/
+
 ### Doctor Management
 
 * Doctor Registration
