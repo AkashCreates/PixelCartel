@@ -9,7 +9,7 @@ const Navbar = () => {
   const { token, setToken, userData } = useContext(AppContext);
 
   const [showMenu, setShowMenu] = useState(false);
-  const adminUrl = import.meta.env.VITE_ADMIN_URL || "https://health-bridgeadmin-git-main-adi-builds-projects.vercel.app";
+  const adminUrl = import.meta.env.VITE_ADMIN_URL
 
   const logout = () =>{
     setToken(false)
